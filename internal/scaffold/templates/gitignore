@@ -1,0 +1,11 @@
+# Runtime files owned by hloop. The ledger, docs and prompts are tracked on purpose.
+state.json
+state.lock
+run.lock
+ledger.lock
+inbox.lock
+inbox.jsonl
+inbox.archive.jsonl
+runs/
+*.tmp
+.tmp-*

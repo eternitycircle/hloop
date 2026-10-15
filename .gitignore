@@ -1,0 +1,9 @@
+# build output
+/dist/
+/hloop
+/hloop.exe
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
