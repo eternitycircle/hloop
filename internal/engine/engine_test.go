@@ -153,6 +153,15 @@ func TestUntarRefusesEscapes(t *testing.T) {
 	}
 }
 
+func TestRootedPathsOnEveryOS(t *testing.T) {
+	for p, want := range map[string]bool{"/etc/passwd": true, `\Windows\x`: true, "C:x": true, `C:\x`: true, `\\server\share`: true,
+		"ok.txt": false, "a/b": false, "../up": false} {
+		if rooted(p) != want {
+			t.Errorf("rooted(%q) = %v, want %v", p, !want, want)
+		}
+	}
+}
+
 func TestExportCommitHasOnlyTrackedFiles(t *testing.T) {
 	dir := repo(t)
 	os.WriteFile(filepath.Join(dir, "untracked.txt"), []byte("x"), 0o644)

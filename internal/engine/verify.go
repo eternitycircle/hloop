@@ -176,7 +176,7 @@ func untar(r io.Reader, dest string) error {
 			return err
 		}
 		name := filepath.FromSlash(h.Name)
-		if filepath.IsAbs(name) || strings.HasPrefix(filepath.Clean(name), "..") {
+		if rooted(h.Name) || strings.HasPrefix(filepath.Clean(name), "..") {
 			return fmt.Errorf("unsafe path in archive: %s", h.Name)
 		}
 		target := filepath.Join(dest, name)
@@ -205,13 +205,22 @@ func untar(r io.Reader, dest string) error {
 		case tar.TypeSymlink:
 			link := h.Linkname
 			resolved := filepath.Join(filepath.Dir(target), filepath.FromSlash(link))
-			if filepath.IsAbs(link) || !strings.HasPrefix(resolved, filepath.Clean(dest)+string(os.PathSeparator)) {
+			if rooted(link) || !strings.HasPrefix(resolved, filepath.Clean(dest)+string(os.PathSeparator)) {
 				continue
 			}
 			_ = os.MkdirAll(filepath.Dir(target), 0o755)
 			_ = os.Symlink(link, target)
 		}
 	}
+}
+
+// rooted reports whether a path from an archive is anchored anywhere other
+// than the export folder, on any OS: "/x" and "\x" (the root of the current
+// drive on Windows, which filepath.IsAbs does not count), "C:..." and UNC
+// paths.
+func rooted(p string) bool {
+	return strings.HasPrefix(p, "/") || strings.HasPrefix(p, `\`) || filepath.IsAbs(p) ||
+		filepath.VolumeName(p) != "" || (len(p) >= 2 && p[1] == ':')
 }
 
 // gatesFor returns the configured gates that apply to a task kind.
