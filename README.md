@@ -15,13 +15,13 @@ It replaces the two earlier projects (`antigravity-harness`, `harness-runner`). 
 macOS / Linux:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/OWNER/harness-loop/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/eternitycircle/hloop/main/scripts/install.sh | sh
 ```
 
 Windows (PowerShell):
 
 ```powershell
-irm https://raw.githubusercontent.com/OWNER/harness-loop/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/eternitycircle/hloop/main/scripts/install.ps1 | iex
 ```
 
 Or download an archive from the Releases page and put `hloop` on your PATH. To build from source: `go build -o hloop ./cmd/hloop` (Go 1.22+).

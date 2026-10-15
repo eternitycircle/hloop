@@ -1,10 +1,10 @@
 #!/bin/sh
 # Install hloop on Linux or macOS.
-#   curl -fsSL https://raw.githubusercontent.com/OWNER/REPO/main/scripts/install.sh | sh
-# Environment: HLOOP_REPO=OWNER/REPO (required if not baked in), HLOOP_VERSION=vX.Y.Z, HLOOP_BIN_DIR=/path
+#   curl -fsSL https://raw.githubusercontent.com/eternitycircle/hloop/main/scripts/install.sh | sh
+# Environment: HLOOP_REPO=eternitycircle/hloop (required if not baked in), HLOOP_VERSION=vX.Y.Z, HLOOP_BIN_DIR=/path
 set -eu
 
-REPO="${HLOOP_REPO:-OWNER/harness-loop}"
+REPO="${HLOOP_REPO:-eternitycircle/hloop}"
 VERSION="${HLOOP_VERSION:-latest}"
 
 case "$REPO" in OWNER/*) echo "Set HLOOP_REPO=<github-user>/<repo> (this script has not been customised yet)." >&2; exit 1;; esac

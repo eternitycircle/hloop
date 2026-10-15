@@ -46,11 +46,11 @@ Put the result anywhere on your PATH. `scripts/build-all.sh 0.6.0` builds all si
 Run `scripts/set-repo.sh <github-user>/<repo>` once, commit, and publish a release (see [PUBLISHING.md](PUBLISHING.md)). Then anyone can install with:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/OWNER/harness-loop/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/eternitycircle/hloop/main/scripts/install.sh | sh
 ```
 
 ```powershell
-irm https://raw.githubusercontent.com/OWNER/harness-loop/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/eternitycircle/hloop/main/scripts/install.ps1 | iex
 ```
 
 The scripts download the right archive from the latest GitHub Release, verify its checksum, and install to `~/.local/bin` (Linux/macOS) or `%LOCALAPPDATA%\Programs\hloop` (Windows, added to PATH). Pin a version with `HLOOP_VERSION=v0.6.0`. The repo must be public for these URLs to work without a login.
@@ -58,7 +58,7 @@ The scripts download the right archive from the latest GitHub Release, verify it
 To install a specific version or a pre-release from a branch before merging:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/OWNER/harness-loop/<branch>/scripts/install.sh | HLOOP_VERSION=v0.6.0-rc1 sh
+curl -fsSL https://raw.githubusercontent.com/eternitycircle/hloop/<branch>/scripts/install.sh | HLOOP_VERSION=v0.6.0-rc1 sh
 ```
 
 ## Updating and uninstalling

@@ -1,7 +1,7 @@
 # Install hloop on Windows (PowerShell):
-#   $env:HLOOP_REPO="OWNER/REPO"; irm https://raw.githubusercontent.com/OWNER/REPO/main/scripts/install.ps1 | iex
+#   $env:HLOOP_REPO="eternitycircle/hloop"; irm https://raw.githubusercontent.com/eternitycircle/hloop/main/scripts/install.ps1 | iex
 $ErrorActionPreference = "Stop"
-$repo = if ($env:HLOOP_REPO) { $env:HLOOP_REPO } else { "OWNER/harness-loop" }
+$repo = if ($env:HLOOP_REPO) { $env:HLOOP_REPO } else { "eternitycircle/hloop" }
 if ($repo -like "OWNER/*") { throw "Set `$env:HLOOP_REPO='<github-user>/<repo>' (this script has not been customised yet)." }
 $arch = if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") { "arm64" } else { "amd64" }
 $version = if ($env:HLOOP_VERSION) { $env:HLOOP_VERSION } else {
