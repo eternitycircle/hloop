@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "name": "hloop",
+  "limits": {
+    "max_turns_per_run": 25,
+    "turn_pause_seconds": 5,
+    "rate_limit_backoff_minutes": 300,
+    "max_consecutive_failures": 2,
+    "agent_timeout_minutes": 120,
+    "max_stalled_turns": 3
+  },
+  "agents": {
+    "builder": {
+      "adapter": "claude-code",
+      "role": "builder",
+      "prompt": "prompts/builder.md",
+      "mode": "write",
+      "trigger": "every_turn",
+      "session": "fresh"
+    }
+  },
+  "pipeline": [
+    "builder"
+  ],
+  "notify": {
+    "events": [
+      "blocker",
+      "complete",
+      "rate_limited",
+      "error",
+      "review",
+      "digest",
+      "check"
+    ]
+  },
+  "remote_tasks": "approve",
+  "auto_resume": true,
+  "commit_ledger": true,
+  "gates": [
+    {
+      "name": "vet",
+      "run": [
+        "go",
+        "vet",
+        "./..."
+      ]
+    },
+    {
+      "name": "test",
+      "run": [
+        "go",
+        "test",
+        "./..."
+      ],
+      "timeout_minutes": 30
+    }
+  ],
+  "tdd": "off",
+  "guards": {
+    "protected_branches": [
+      "main",
+      "master"
+    ],
+    "history_rewrite": "block",
+    "protected_commit": "notify",
+    "dependency_change": "notify",
+    "mass_delete": "notify",
+    "mass_delete_count": 10
+  }
+}

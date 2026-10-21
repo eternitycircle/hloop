@@ -1,0 +1,181 @@
+{
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "0.3.0 baseline: harness-agnostic CLI",
+      "status": "done",
+      "source": "adopt",
+      "commit": "dddc3eb",
+      "summary": "Single-binary hloop with adapters, loop engine, trust fingerprinting, agents, phone control and scheduling.",
+      "added": "2026-10-15T14:19:21.481834278Z",
+      "done": "2026-10-15T14:19:21.481835227Z"
+    },
+    {
+      "id": "T2",
+      "title": "0.4.0: acceptance criteria, gates and guardrails",
+      "status": "done",
+      "source": "adopt",
+      "commit": "f11736a",
+      "summary": "Added criteria, gates, red/green proof, guardrail detectors, GUARDRAILS.md, CURRENT.md, reports, hloop spec and spec check, ideas, lessons and model tiers.",
+      "added": "2026-10-15T14:19:21.491861685Z",
+      "done": "2026-10-15T14:19:21.4918625Z"
+    },
+    {
+      "id": "T3",
+      "title": "0.5.0: PRD, spec layout, tour, docs",
+      "status": "done",
+      "source": "adopt",
+      "commit": "4e68323",
+      "summary": "Added PROGRESS_LOG.md, spec --project, --from, hloop tour, hloop docs, skill install --agents-md, PRD.md rename.",
+      "added": "2026-10-15T14:19:21.503987794Z",
+      "done": "2026-10-15T14:19:21.50398875Z"
+    },
+    {
+      "id": "T4",
+      "title": "0.6.0: releases and technical writer",
+      "status": "done",
+      "source": "adopt",
+      "commit": "c33c989",
+      "summary": "Added hloop release, tech-writer agent, docs agent mode and release documentation.",
+      "added": "2026-10-15T14:19:21.512894468Z",
+      "done": "2026-10-15T14:19:21.512894751Z"
+    },
+    {
+      "id": "T5",
+      "title": "0.6.0 documentation pass",
+      "status": "done",
+      "source": "adopt",
+      "commit": "d02d396",
+      "summary": "Updated docs for 0.6.0.",
+      "added": "2026-10-15T14:19:21.522585008Z",
+      "done": "2026-10-15T14:19:21.522588779Z"
+    },
+    {
+      "id": "T6",
+      "title": "Run go vet and static scanners",
+      "detail": "README says govulncheck and gosec were never run. Run go vet ./..., govulncheck ./... and gosec ./... (install tools outside the repo; no dependency added), record findings. Fix only trivial findings; file tasks for the rest. Update README Verification status line if scanners now run.",
+      "status": "pending",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.536673049Z",
+      "kind": "research",
+      "criteria": [
+        {
+          "id": "AC1",
+          "text": "go vet ./... exits 0",
+          "priority": "must",
+          "verify": "run go vet ./...",
+          "status": "open"
+        },
+        {
+          "id": "AC2",
+          "text": "Scanner results are summarised in the task summary, with each finding fixed or queued as a task",
+          "priority": "must",
+          "verify": "read the summary",
+          "status": "open"
+        },
+        {
+          "id": "AC3",
+          "text": "go test ./... still passes",
+          "priority": "must",
+          "verify": "run go test ./...",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "id": "T7",
+      "title": "Check the test-count claim in README Verification status",
+      "detail": "README.md says 127 unit and end-to-end tests pass (0.6.0). Count the actual tests with go test -v ./... and correct the number in README.md and docs/reference if it differs.",
+      "status": "pending",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.545467813Z",
+      "kind": "docs",
+      "criteria": [
+        {
+          "id": "AC1",
+          "text": "The number in README.md equals the count of PASSing top-level tests from go test -v ./...",
+          "priority": "must",
+          "verify": "run go test -v ./... | grep -c '^--- PASS'",
+          "status": "open"
+        }
+      ]
+    }
+  ],
+  "blockers": null,
+  "decisions": [
+    {
+      "id": "D1",
+      "topic": "Default branch name: main or master",
+      "status": "Open",
+      "options": "main (CI workflows and docs assume it) | master (this repo's actual branch)",
+      "needs": "Which name the real remote uses; ci.yml triggers on push to main only"
+    },
+    {
+      "id": "D2",
+      "topic": "Real GitHub repo for install URLs",
+      "status": "Open",
+      "options": "run scripts/set-repo.sh \u003cuser\u003e/\u003crepo\u003e | keep OWNER placeholder",
+      "needs": "The owner/repo name to publish under"
+    },
+    {
+      "id": "D3",
+      "topic": "CI Go version vs go.mod",
+      "status": "Open",
+      "options": "keep CI at 1.24, go.mod 1.22 | align both",
+      "needs": "Whether Go 1.22 must be supported and tested"
+    }
+  ],
+  "reviews": null,
+  "ideas": [
+    {
+      "id": "I1",
+      "text": "Verify Cursor, Devin, Muse, OpenClaw and agy adapters against real CLIs (needs vendor accounts)",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.594173967Z",
+      "status": "open"
+    },
+    {
+      "id": "I2",
+      "text": "Exercise macOS and Windows runtime (run loop, scheduler) on real machines",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.604312776Z",
+      "status": "open"
+    },
+    {
+      "id": "I3",
+      "text": "Test the Telegram bot and ntfy against real servers",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.616437969Z",
+      "status": "open"
+    },
+    {
+      "id": "I4",
+      "text": "Drive the interactive flows (init --ai, spec -i, adopt --interactive) with a person",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.62869081Z",
+      "status": "open"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "L1",
+      "text": "Run tests with go test ./... ; cmd/hloop e2e tests take about 50 s. No third-party dependencies.",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.638970604Z",
+      "status": "proposed"
+    },
+    {
+      "id": "L2",
+      "text": "Never edit .loop/ledger.json or generated .loop/*.md by hand; use hloop commands.",
+      "source": "agent:adopter",
+      "added": "2026-10-15T14:19:21.649260001Z",
+      "status": "proposed"
+    }
+  ],
+  "next_task": 7,
+  "next_blocker": 0,
+  "next_decision": 3,
+  "next_review": 0,
+  "next_idea": 4,
+  "next_lesson": 2
+}
